@@ -10,6 +10,10 @@ import { SimpleContractFormComponent } from './components/simple-contract-form/s
 import { WebsitePriceComponent } from './components/website-price/website-price.component';
 import { SimpleContractComponent } from './components/simple-contract/simple-contract.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule } from '@angular/forms';
+import { ToastrModule } from 'ngx-toastr';
+
 
 @NgModule({
   declarations: [
@@ -24,7 +28,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    MDBBootstrapModule.forRoot()
+    MDBBootstrapModule.forRoot(),
+    HttpClientModule,
+    FormsModule,
+    ToastrModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]
