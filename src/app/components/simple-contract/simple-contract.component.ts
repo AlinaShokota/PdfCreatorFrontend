@@ -15,42 +15,52 @@ export class SimpleContractComponent implements OnInit {
   contracts: SimpleContract[] = new Array();
   contract: SimpleContract;
   ngOnInit() {
-    this.contract =  new SimpleContract();
+    this.contract = new SimpleContract();
     this.getAllContracts();
   }
 
-  getAllContracts(){
+  getAllContracts() {
     this.simpleContractService.getAllContracts().subscribe(value => {
       this.contracts = value;
       console.log(this.contracts);
     });
   }
 
-  downloadPdfWithId(id: number){
+  downloadPdfWithId(id: number) {
     this.simpleContractService.downloadPdfWithId(id)
-    .subscribe(responce => {
-      const filename = responce.headers.get('id');
-      this.saveFile(responce.body, id);
-    });
+      .subscribe(responce => {
+        const filename = responce.headers.get('id');
+        this.saveFile(responce.body, id);
+      });
   }
   saveFile(data: any, id?: number) {
-    const blob = new Blob([data], {type: 'application/pdf'});
+    const blob = new Blob([data], { type: 'application/pdf' });
     fileSaver.saveAs(blob, id);
   }
 
   saveContract() {
     this.simpleContractService.save(this.contract)
-    .subscribe(value =>{
-      console.log(this.contract.id);
-      this.getAllContracts();
-      this.contract =  new SimpleContract();
-    });
+      .subscribe(value => {
+        this.getAllContracts();
+        this.contract = new SimpleContract();
+      });
   }
 
-  saveAndDownload(){
-    console.log(this.contract.id);
-    this.saveContract();
-    this.downloadPdfWithId(this.contract.id);
-  }
+  delete(id: number) {
+    if (confirm("Are you sure to delete this contract ?")) {
+      this.simpleContractService.delete(id)
+        .subscribe(value => {
+          this.getAllContracts();
+        })
+    }
 
+
+
+
+
+    // this.simpleContractService.delete(id)
+    // .subscribe(value =>{
+    //   this.getAllContracts();
+    // })
+  }
 }

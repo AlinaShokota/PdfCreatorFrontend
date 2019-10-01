@@ -27,4 +27,8 @@ export class SimpleContractService {
   save(contract: SimpleContract): Observable<Object> {
     return this.http.post('http://localhost:8080/contract/save', contract);
   }
+
+  delete(id: number): Observable<Object> {
+    return this.http.delete('http://localhost:8080/contract/delete/' + id);
+  }
 }

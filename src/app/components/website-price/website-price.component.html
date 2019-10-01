@@ -1,1 +1,62 @@
 <app-navbar></app-navbar>
+<div class="container">
+    <div mdbCollapse [isCollapsed]="false" #contractOfEmployment="bs-collapse">
+        <p style="font-weight: 500; font-size: 20px">Website price documents</p>
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th scope="col">Company</th>
+                    <th scope="col">Customer</th>
+                    <th scope="col">Date of creation</th>
+                    <th scope="col">Total cost</th>
+                    <th scope="col"></th>
+                    <th scope="col"></th>
+                </tr>
+            </thead>
+            <tbody *ngFor="let document of websitePriceDocuments">
+                <tr>
+                    <td>{{document.companyName}}</td>
+                    <td>{{document.customerCompanyName}}</td>
+                    <td>{{document.current | date}}</td>
+                    <td>{{document.cost}}</td>
+                    <td>
+                        <button type="button" class="btn btn-success"
+                            (click)="downloadPdfWithId(document.id)">Download</button>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-dark" (click)="delete(document.id)">Delete</button>
+                    </td>
+                </tr>
+                <div class="row">
+                    <mat-accordion>
+                        <mat-expansion-panel>
+                            <mat-expansion-panel-header>
+                                <mat-panel-title>
+                                    <button class="btn">Show prices</button>
+                                </mat-panel-title>
+                            </mat-expansion-panel-header>
+                            <mat-panel-description>
+                                <table class="table table-striped">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col">Title</th>
+                                            <th scope="col">Description</th>
+                                            <th scope="col">Price</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let row of document.pricingRows">
+                                            <td>{{row.title}}</td>
+                                            <td>{{row.description}}</td>
+                                            <td>{{row.price}}</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </mat-panel-description>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
+            </tbody>
+        </table>
+    </div>
+</div>
