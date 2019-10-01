@@ -1,12 +1,12 @@
 import { PriceRow } from './price-row';
 
-export class WebsitePrice {
+export class WebsitePriceDocument {
     id: number;
     current: Date;
     companyName: string;
     customerCompanyName: string;
     cost: number;
-    pricingRows:PriceRow[] = new Array();
+    pricingRows: PriceRow[] = new Array();
 
     constructor(){
         this.pricingRows =  new Array();

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse, HttpHeaders } from '@angular/common/http';
-import { WebsitePrice } from '../model/website-price';
+import { WebsitePriceDocument } from '../model/website-price-document';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -10,8 +10,8 @@ export class WebsitePriceService {
 
   constructor(private http: HttpClient) { }
 
-  getAllWebsitePriceDocuments(): Observable<WebsitePrice[]> {
-    return this.http.get<WebsitePrice[]>('http://localhost:8080/website/all');
+  getAllWebsitePriceDocuments(): Observable<WebsitePriceDocument[]> {
+    return this.http.get<WebsitePriceDocument[]>('http://localhost:8080/website/all');
   }
 
   downloadPdfWithId(id: number): Observable<HttpResponse<Blob>> {
@@ -24,7 +24,7 @@ export class WebsitePriceService {
     });
   }
 
-  save(contract: WebsitePrice): Observable<Object> {
+  save(contract: WebsitePriceDocument): Observable<Object> {
     return this.http.post('http://localhost:8080/website/save', contract);
   }
 
