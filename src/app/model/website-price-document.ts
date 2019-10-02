@@ -11,4 +11,5 @@ export class WebsitePriceDocument {
     constructor(){
         this.pricingRows =  new Array();
     }
+
 }

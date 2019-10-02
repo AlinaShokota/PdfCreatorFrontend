@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { WebsitePriceService } from 'src/app/service/website-price.service';
 import { WebsitePriceDocument } from 'src/app/model/website-price-document';
 import * as fileSaver from 'file-saver';
-import { FormGroup, FormArray, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormArray, FormBuilder, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { PriceRow } from 'src/app/model/price-row';
 
 @Component({
@@ -11,15 +11,17 @@ import { PriceRow } from 'src/app/model/price-row';
   styleUrls: ['./website-price.component.css']
 })
 export class WebsitePriceComponent implements OnInit {
+
   public form: FormGroup;
   public rows: FormArray;
-  
+  submitted = false;
+
   get rowsFormGroup() {
     return this.form.get('pricingRows') as FormArray;
   }
 
-  constructor(private websitePriceService: WebsitePriceService,
-    private fb: FormBuilder) { }
+  constructor(private websitePriceService: WebsitePriceService, private fb: FormBuilder) { }
+
   public isCollapsed = false;
 
   websitePriceDocuments: WebsitePriceDocument[] = new Array();
@@ -31,9 +33,9 @@ export class WebsitePriceComponent implements OnInit {
     this.getAllDocuments();
 
     this.form = this.fb.group({
-      companyName: [],
-      customerCompanyName: [],
-      cost: [],
+      companyName: ['', Validators.required],
+      customerCompanyName: ['', Validators.required],
+      // cost: [],
       pricingRows: this.fb.array([this.createContact()])
     });
 
@@ -43,17 +45,21 @@ export class WebsitePriceComponent implements OnInit {
 
   // method triggered when form is submitted
   submit() {
+    this.submitted = true;
+    if(this.form.invalid){
+      return;
+    }
     this.websitePriceDocument = this.form.value;
    this.calculateCost();
     this.websitePriceService.save(this.websitePriceDocument).subscribe(value =>{
       this.getAllDocuments();
       this.websitePriceDocument = new WebsitePriceDocument();
     });
+
   }
   calculateCost(){
     for (var val of this.websitePriceDocument.pricingRows) {
       this.cost += val.price;
-      console.log(val.price);
     }
     this.websitePriceDocument.cost = this.cost;
   }

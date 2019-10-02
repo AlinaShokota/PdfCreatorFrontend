@@ -41,8 +41,7 @@ export class SimpleContractComponent implements OnInit {
   saveContract() {
     this.simpleContractService.save(this.contract)
       .subscribe(value => {
-        this.getAllContracts();
-        this.contract = new SimpleContract();
+        this.ngOnInit();
       });
   }
 
@@ -53,14 +52,5 @@ export class SimpleContractComponent implements OnInit {
           this.getAllContracts();
         })
     }
-
-
-
-
-
-    // this.simpleContractService.delete(id)
-    // .subscribe(value =>{
-    //   this.getAllContracts();
-    // })
   }
 }
