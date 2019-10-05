@@ -12,7 +12,6 @@ export class WebsitePriceService {
 
   getAllWebsitePriceDocuments(): Observable<WebsitePriceDocument[]> {
     return this.http.get<WebsitePriceDocument[]>('https://pdf-creator-back.herokuapp.com/website/all');
-
   }
 
   downloadPdfWithId(id: number): Observable<HttpResponse<Blob>> {
@@ -31,6 +30,5 @@ export class WebsitePriceService {
 
   delete(id: number): Observable<Object> {
     return this.http.delete('https://pdf-creator-back.herokuapp.com/website/delete/' + id);
-
   }
 }
