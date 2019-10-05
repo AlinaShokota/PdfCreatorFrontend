@@ -11,13 +11,13 @@ export class WebsitePriceService {
   constructor(private http: HttpClient) { }
 
   getAllWebsitePriceDocuments(): Observable<WebsitePriceDocument[]> {
-    return this.http.get<WebsitePriceDocument[]>('http://localhost:8080/website/all');
+    return this.http.get<WebsitePriceDocument[]>('https://app-test3.herokuapp.com/website/all');
   }
 
   downloadPdfWithId(id: number): Observable<HttpResponse<Blob>> {
     let headers = new HttpHeaders();
     headers = headers.append('Accept', 'application/pdf');
-    return this.http.get('http://localhost:8080/website/download/' + id, {
+    return this.http.get('https://app-test3.herokuapp.com/website/download/' + id, {
       headers,
       observe: 'response',
       responseType: 'blob'
@@ -25,10 +25,10 @@ export class WebsitePriceService {
   }
 
   save(contract: WebsitePriceDocument): Observable<Object> {
-    return this.http.post('http://localhost:8080/website/save', contract);
+    return this.http.post('https://app-test3.herokuapp.com/website/save', contract);
   }
 
   delete(id: number): Observable<Object> {
-    return this.http.delete('http://localhost:8080/website/delete/' + id);
+    return this.http.delete('https://app-test3.herokuapp.com/website/delete/' + id);
   }
 }

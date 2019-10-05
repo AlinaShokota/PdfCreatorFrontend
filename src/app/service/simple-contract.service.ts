@@ -11,13 +11,13 @@ export class SimpleContractService {
   constructor(private http: HttpClient) { }
 
   getAllContracts(): Observable<SimpleContract[]> {
-    return this.http.get<SimpleContract[]>('http://localhost:8080/contract/all');
+    return this.http.get<SimpleContract[]>('https://app-test3.herokuapp.com/contract/all');
   }
 
   downloadPdfWithId(id: number): Observable<HttpResponse<Blob>> {
     let headers = new HttpHeaders();
     headers = headers.append('Accept', 'application/pdf');
-    return this.http.get('http://localhost:8080/contract/download/' + id, {
+    return this.http.get('https://app-test3.herokuapp.com/contract/download/' + id, {
       headers,
       observe: 'response',
       responseType: 'blob'
@@ -25,10 +25,10 @@ export class SimpleContractService {
   }
 
   save(contract: SimpleContract): Observable<Object> {
-    return this.http.post('http://localhost:8080/contract/save', contract);
+    return this.http.post('https://app-test3.herokuapp.com/contract/save', contract);
   }
 
   delete(id: number): Observable<Object> {
-    return this.http.delete('http://localhost:8080/contract/delete/' + id);
+    return this.http.delete('https://app-test3.herokuapp.com/contract/delete/' + id);
   }
 }
