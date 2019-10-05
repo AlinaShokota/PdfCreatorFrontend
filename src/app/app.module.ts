@@ -14,6 +14,7 @@ import { ToastrModule } from 'ngx-toastr';
 import { FooterComponent } from './components/footer/footer.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MaterialModule } from './material-module';
+import { TraveldeskReportComponent } from './components/traveldesk-report/traveldesk-report.component';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { MaterialModule } from './material-module';
     WebsitePriceComponent,
     SimpleContractComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    TraveldeskReportComponent
   ],
   imports: [
     BrowserModule,
